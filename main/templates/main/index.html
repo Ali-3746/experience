@@ -3,6 +3,7 @@
 {% block content %}
 
 <div>
+    <a href="{% url 'createroom' %}">Create-room</a>
     {% for room in rooms %}
         <div>
             <span>@{{room.host.username}}</span>
