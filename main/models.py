@@ -18,6 +18,9 @@ class Room(models.Model):
     updated = models.DateTimeField(auto_now=True)
     craeted = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-updated', '-craeted']
+
     def __str__(self):
         return self.name
 
