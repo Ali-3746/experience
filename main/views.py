@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Room
+from .models import Room, Topic
 from .forms import RoomForm
 
 # rooms = [{'id': 1, 'name': 3},
@@ -9,7 +9,8 @@ from .forms import RoomForm
 
 def index(request):
     rooms = Room.objects.all()
-    context = {'rooms': rooms}
+    topics = Topic.objects.all()
+    context = {'rooms': rooms, 'topics': topics}
     return render(request, 'main/index.html', context)
 
 def room(request, pk):
@@ -37,3 +38,10 @@ def updateroom(request, pk):
         return redirect('index')
     context = {'form': form}
     return render(request, 'main/room_form.html', context)
+
+def deleteroom(request, pk):
+    room = Room.objects.get(id=pk)
+    if request.method == 'POST':
+        room.delete()
+        return redirect('index')
+    return render(request, 'main/delete.html', {'obj': room})
